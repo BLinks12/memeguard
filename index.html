@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MemeGuard - Memecoin Security Platform</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styling */
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    #header {
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 16px;
+    }
+
+    #header strong {
+      color: #52e152;
+    }
+
+    /* SVG Icon */
+    #header svg {
+      height: 100px;
+      width: 100px;
+      color: #52e152;
+      margin-bottom: 16px;
+    }
+
+    /* Container */
+    #container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    /* Text Container with Typewriter Effect */
+    #text-container {
+      font-size: 2em;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    #caret {
+      width: 2px;
+      background-color: #52e152;
+      margin-left: 2px;
+      animation: blink 0.7s infinite;
+      height: 1em;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    /* Status Message */
+    #securityStatus {
+      margin-top: 16px;
+      font-size: 0.9em;
+      color: #52e152;
+    }
+
+    /* Submission Container */
+    #submission-container {
+      margin-top: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    #submission-container input[type="url"] {
+      padding: 8px;
+      width: 300px;
+      max-width: 100%;
+      border-radius: 4px;
+      border: 1px solid #444;
+      color: #000;
+      font-size: 1em;
+    }
+
+    #submission-container button {
+      background-color: #52e152;
+      border: none;
+      color: #000;
+      font-size: 1em;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    #submission-container button:hover {
+      background-color: #4cd74c;
+    }
+
+    /* Loading Indicator */
+    .loading-indicator {
+      margin-top: 8px;
+      color: #52e152;
+      font-size: 1em;
+      display: none;
+    }
+
+    /* Log Area */
+    .log {
+      width: 100%;
+      max-width: 800px;
+      background-color: #1e1e1e;
+      font-family: monospace;
+      font-size: 0.85em;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      margin-top: 24px;
+      overflow-y: auto;
+      max-height: 300px;
+      white-space: pre-wrap;
+    }
+
+    .log span {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .log .info {
+      color: #0f0;
+    }
+
+    .log .warning {
+      color: #ff0;
+    }
+
+    .log .error {
+      color: #f00;
+    }
+
+    .log .success {
+      color: #0ff;
+    }
+
+    /* Footer */
+    #footer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+      text-align: center;
+      font-size: 0.8em;
+      max-width: 800px;
+    }
+
+    #footer a {
+      color: #52e152;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    #footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      #container {
+        flex-direction: column;
+      }
+
+      #text-container {
+        font-size: 1.5em;
+      }
+
+      #submission-container input[type="url"] {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Badge Icon for MemeGuard -->
+  <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor"
+      d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 80c-45 0-82 37-82 82s37 82 82 82 82-37 82-82-37-82-82-82zm0 168c-33.1 0-60-26.9-60-60s26.9-60 60-60 60 26.9 60 60-26.9 60-60 60z"/>
+  </svg>
+
+  <div id="header">
+    <strong>MemeGuard</strong> - Memecoin Security
+    <br/>
+    <small style="opacity:0.7;">Protecting your memecoin investments with top-notch security measures.</small>
+  </div>
+
+  <div id="container">
+    <!-- Shield Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="color: #52e152; height:30px;">
+      <path fill="currentColor"
+        d="M224 0L56 64v96c0 160 112 256 168 272a16 16 0 0016 0c56-16 168-112 168-272V64L224 0z"/>
+    </svg>
+    <div id="text-container">
+      <span id="protocol">secure://</span>
+      <span id="domain"></span>
+      <span id="caret"></span>
+    </div>
+  </div>
+
+  <div id="securityStatus">All systems operational.</div>
+
+  <!-- URL Submission Section -->
+  <div id="submission-container">
+    <input type="url" id="auditUrl" placeholder="https://memecoin.example" />
+    <button id="beginAuditBtn">Begin Audit</button>
+    <div class="loading-indicator" id="loadingIndicator">Processing...</div>
+  </div>
+
+  <!-- Log Area -->
+  <div class="log" id="logArea"></div>
+
+  <!-- Footer -->
+  <div id="footer">
+    <div>Submit a memecoin site URL for a comprehensive security audit. Receive detailed reports and recommendations.</div>
+    <div>Stay connected on <a href="https://twitter.com/MemeGuard" target="_blank">@MemeGuard</a> for the latest security updates.</div>
+  </div>
+
+  <script>
+    /*******************************************
+     * 1) TYPEWRITER EFFECT FOR DOMAIN NAMES
+     *******************************************/
+    const domains = [
+      "memeguard.com",
+      "safememe.org",
+      "shieldmeme.io",
+      "protectmeme.xyz",
+      "memesecure.net"
+    ];
+    let currentDomainIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 150;
+    const deletingSpeed = 75;
+    const pauseBetweenWords = 1000;
+
+    function typeText() {
+      const currentDomain = domains[currentDomainIndex];
+      const domainElement = document.getElementById("domain");
+
+      if (isDeleting) {
+        domainElement.textContent = currentDomain.substring(0, currentCharIndex - 1);
+        currentCharIndex--;
+      } else {
+        domainElement.textContent = currentDomain.substring(0, currentCharIndex + 1);
+        currentCharIndex++;
+      }
+
+      if (!isDeleting && currentCharIndex === currentDomain.length) {
+        isDeleting = true;
+        setTimeout(typeText, pauseBetweenWords);
+      } else if (isDeleting && currentCharIndex === 0) {
+        isDeleting = false;
+        currentDomainIndex = (currentDomainIndex + 1) % domains.length;
+        setTimeout(typeText, typingSpeed);
+      } else {
+        setTimeout(typeText, isDeleting ? deletingSpeed : typingSpeed);
+      }
+    }
+    typeText();
+
+    /*******************************************
+     * 2) LOG & UI ELEMENTS
+     *******************************************/
+    const logArea = document.getElementById("logArea");
+    const beginAuditBtn = document.getElementById("beginAuditBtn");
+    const auditUrlInput = document.getElementById("auditUrl");
+    const loadingIndicator = document.getElementById("loadingIndicator");
+    const securityStatus = document.getElementById("securityStatus");
+
+    function logMessage(msg, type = "info") {
+      const span = document.createElement("span");
+      span.classList.add(type);
+      span.innerText = msg;
+      logArea.appendChild(span);
+      logArea.scrollTop = logArea.scrollHeight;
+    }
+
+    /*******************************************
+     * 3) AUDIT PROCESS SIMULATION
+     *******************************************/
+    beginAuditBtn.addEventListener("click", () => {
+      const urlToAudit = auditUrlInput.value.trim();
+      if (!urlToAudit) {
+        logMessage("Please enter a valid URL before starting the audit.", "warning");
+        return;
+      }
+
+      logMessage(`Requesting audit for: ${urlToAudit} ...`, "info");
+      loadingIndicator.style.display = "inline";
+
+      // Simulate audit processing time
+      setTimeout(() => {
+        loadingIndicator.style.display = "none";
+        logMessage("Audit processing complete! To receive the results, we need your email.", "info");
+
+        // Simulate queue position
+        const queuePosition = getRandomInt(10, 50);
+        logMessage(`You are currently number ${queuePosition} in the queue. Please wait for your turn.`, "info");
+
+        // Prompt the user for their email
+        const email = prompt("Enter your email to receive the audit results:", "");
+        if (email && validateEmail(email)) {
+          logMessage(`Email provided: ${email}. We'll send the audit report as soon as it's ready!`, "success");
+          securityStatus.textContent = "Awaiting audit results.";
+        } else if (email) {
+          logMessage("Invalid email format. Please try again.", "error");
+        } else {
+          logMessage("No email provided. We can't deliver the results to you.", "warning");
+        }
+      }, 3000); // 3-second fake processing
+    });
+
+    // Email validation function
+    function validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
+      return re.test(String(email).toLowerCase());
+    }
+
+    // Function to get random integer between min and max (inclusive)
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  </script>
+</body>
+</html>
