@@ -35,12 +35,15 @@
       color: #52e152;
     }
 
-    /* SVG Icon */
-    #header svg {
-      height: 40px; /* Reduced from 100px */
-      width: 40px;  /* Reduced from 100px */
+    /* Main Shield SVG Icon */
+    #header .main-shield {
+      height: 30px; /* Adjust the height as needed */
+      width: 30px;  /* Adjust the width to maintain aspect ratio */
       color: #52e152;
       margin-bottom: 16px;
+      display: block; /* Ensures it appears on its own line */
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Container */
@@ -49,6 +52,14 @@
       align-items: center;
       gap: 8px;
       margin-top: 32px;
+      flex-direction: column; /* Stack items vertically */
+    }
+
+    /* Shield SVG Icon in Container */
+    #container .shield-icon {
+      height: 20px; /* Adjust size as needed */
+      width: 20px;
+      color: #52e152;
     }
 
     /* Text Container with Typewriter Effect */
@@ -57,6 +68,7 @@
       position: relative;
       display: flex;
       align-items: center;
+      justify-content: center; /* Center the text horizontally */
     }
 
     #caret {
@@ -197,21 +209,22 @@
   </style>
 </head>
 <body>
-  <!-- SVG Badge Icon for MemeGuard -->
-  <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor"
-      d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 80c-45 0-82 37-82 82s37 82 82 82 82-37 82-82-37-82-82-82zm0 168c-33.1 0-60-26.9-60-60s26.9-60 60-60 60 26.9 60 60-26.9 60-60 60z"/>
-  </svg>
-
+  <!-- Header Section with Shield SVG as Main Icon -->
   <div id="header">
+    <!-- Main Shield SVG Icon -->
+    <svg class="main-shield" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-label="Shield Icon">
+      <path fill="currentColor"
+        d="M224 0L56 64v96c0 160 112 256 168 272a16 16 0 0016 0c56-16 168-112 168-272V64L224 0z"/>
+    </svg>
     <strong>MemeGuard</strong> - Memecoin Security
     <br/>
     <small style="opacity:0.7;">Protecting your memecoin investments with top-notch security measures.</small>
   </div>
 
+  <!-- Container with Shield Icon and Typewriter Effect -->
   <div id="container">
     <!-- Shield Icon -->
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="color: #52e152; height:30px;">
+    <svg class="shield-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-label="Secondary Shield Icon">
       <path fill="currentColor"
         d="M224 0L56 64v96c0 160 112 256 168 272a16 16 0 0016 0c56-16 168-112 168-272V64L224 0z"/>
     </svg>
